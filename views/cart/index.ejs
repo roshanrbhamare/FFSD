@@ -24,7 +24,7 @@
     // Fetch and display cart items
     async function fetchCart() {
       try {
-        const response = await fetch("https://e-commerece-7y4h.onrender.com/api/v1/user/cart", {
+        const response = await fetch("http://localhost:8000/api/v1/user/cart", {
           method: "POST",
           credentials: "include",
         });
@@ -57,24 +57,24 @@
             <div class="grid grid-cols-4 items-center gap-4 border-b pb-4">
               <!-- Product Image -->
               <div class="w-[100px] h-[100px] overflow-hidden">
-                <img class="h-full w-full object-cover object-top rounded" src="${item.productId.image}" alt="">
+                <img class="h-full w-full object-cover object-top rounded" src="${item.image}" alt="">
               </div>
   
               <!-- Product Info -->
               <div>
-                <p class="font-semibold tracking-tighter text-sm">${item.productId.title}</p>
-                <button class="text-red-600 text-sm" onclick="removeFromCartPermanent('${item.productId._id}')">🗑 Remove</button>
+                <p class="font-semibold tracking-tighter text-sm">${item.title}</p>
+                <button class="text-red-600 text-sm" onclick="removeFromCartPermanent('${item.id}')">🗑 Remove</button>
               </div>
   
               <!-- Quantity Control -->
               <div class="flex items-center space-x-2">
-                <button class="px-2 py-1 bg-gray-200 rounded" onclick="removeFromCart('${item.productId._id}')">-</button>
-                <span id="qty-${item.productId._id}" class="px-4">${item.quantity}</span>
-                <button class="px-2 py-1 bg-gray-200 rounded" onclick="AddToCart('${item.productId._id}')">+</button>
+                <button class="px-2 py-1 bg-gray-200 rounded" onclick="removeFromCart('${item.id}')">-</button>
+                <span id="qty-${item.id}" class="px-4">${item.quantity}</span>
+                <button class="px-2 py-1 bg-gray-200 rounded" onclick="AddToCart('${item.id}')">+</button>
               </div>
   
               <!-- Product Price -->
-              <p class="font-semibold text-lg">Rs. ${item.productId.price*item.quantity}</p>
+              <p class="font-semibold text-lg">Rs. ${item.price*item.quantity}</p>
             </div>
           `;
         });
@@ -85,7 +85,7 @@
     // Add item to cart
     async function AddToCart(productId) {
       console.log(productId);
-      await fetch(`https://e-commerece-7y4h.onrender.com/api/v1/user/cart/add/${productId}`, {
+      await fetch(`http://localhost:8000/api/v1/user/cart/add/${productId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -100,7 +100,7 @@
     // Remove item from cart
     async function removeFromCart(productId) {
       console.log(productId);
-      await fetch(`https://e-commerece-7y4h.onrender.com/api/v1/user/cart/remove/${productId}`, {
+      await fetch(`http://localhost:8000/api/v1/user/cart/remove/${productId}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -113,7 +113,7 @@
 
     async function removeFromCartPermanent(productId) {
       console.log(productId);
-      await fetch(`https://e-commerece-7y4h.onrender.com/api/v1/user/cart/remove/${productId}`, {
+      await fetch(`http://localhost:8000/api/v1/user/cart/remove/${productId}`, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
         credentials: "include",

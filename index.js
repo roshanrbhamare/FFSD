@@ -6,7 +6,7 @@ import products from './data/products.js';
 import blogPosts from "./data/blogId.json" with { type: "json" };
 import userController from "./routes/user.js"
 import productRouter from "./routes/product.js"
-import dbConnection from "./config/db.js"
+
 import { fileURLToPath } from 'url';
 import dotenv from "dotenv";
 import { title } from 'process';
@@ -15,6 +15,7 @@ import cookieParser  from "cookie-parser";
 import Product from './models/product.js';
 import isAuthenticated from './middleware]/isAuthenticated.js';
 import User from './models/user.js';
+import { db } from './config/db.js';
 dotenv.config({});
 
 const __filename = fileURLToPath(import.meta.url);
@@ -80,39 +81,58 @@ app.get("/api/v1/admin/login",(req,res)=>{
   return res.render('admin/login/index.ejs', { title: 'login',role:"admin"})
 })
 
-app.get("/api/v1/admin/dashboard",async(req,res)=>{
+app.get('/api/v1/admin/dashboard', async (req, res) => {
+  try {
+    db.all('SELECT * FROM users', async (err, users) => {
+      if (err) return res.status(500).json({ message: 'Database error' });
 
-  const users = await User.find({}).populate(["cart.productId", "products"]);
-  const products = await Product.find({}).populate("sellerId");
-  let totalCartAmount = 0;
-  let customerOrders = 0;
-  let sellerOrders = 0;
-  let UserCount =0;
-  users.forEach(user => {
-    if (user.role === "user") {
-      // Sum up cart value for customers
-      UserCount+=1;
-      user.cart.forEach(cartItem => {
-        if (cartItem.productId) {
-          totalCartAmount += cartItem.productId.price * cartItem.quantity;
+      db.all('SELECT * FROM products', async (err, products) => {
+        if (err) return res.status(500).json({ message: 'Database error' });
+
+        let totalCartAmount = 0;
+        let customerOrders = 0;
+        let sellerOrders = 0;
+        let userCount = 0;
+
+        for (const user of users) {
+          if (user.role === 'user') {
+            userCount += 1;
+            await new Promise((resolve) => {
+              db.all('SELECT * FROM cart WHERE userId = ?', [user.id], (err, cartItems) => {
+                if (!err) {
+                  cartItems.forEach(cartItem => {
+                    const product = products.find(p => p.id === cartItem.productId);
+                    console.log(product)
+                    if (product) {
+                      
+                      totalCartAmount += product.price * cartItem.quantity;
+                    }
+                  });
+                  customerOrders += cartItems.length;
+                }
+                resolve();
+              });
+            });
+          } else if (user.role === 'seller') {
+            sellerOrders += products.filter(p => p.sellerId === user.id).length;
+          }
         }
-      });
-      customerOrders += user.cart.length;
-    } else if (user.role === "seller") {
-      // Count seller orders based on products sold
-      sellerOrders += user.products.length;
-    }
-  });
 
-  res.render("admin/dashboard/index.ejs", {
-    title: "Dashboard",
-    role: "admin",
-    totalCartAmount,
-    customerOrders,
-    CustomerCount:UserCount,
-    registeredProducts:products
-  });
-})
+        res.render('admin/dashboard/index.ejs', {
+          title: 'Dashboard',
+          role: 'admin',
+          totalCartAmount,
+          customerOrders,
+          CustomerCount: userCount,
+          registeredProducts: products
+        });
+      });
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 app.post("/api/v1/admin/dashboard", async (req, res) => {
   try {
     const {email,password} = req.body;
@@ -131,6 +151,6 @@ console.log("jii")
 
 const PORT = 8000;
 app.listen(PORT, () => {
-  dbConnection();
+  
   console.log(`Server running on http://localhost:${PORT}`)
 });
