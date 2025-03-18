@@ -87,8 +87,8 @@
                 isValid = false;
             }
 
-            if (password.value.length < 2) {
-                passwordError.textContent = "Password must be at least 2 characters long.";
+            if (password.value.length < 8) {
+                passwordError.textContent = "Password must be at least 8 characters long.";
                 passwordError.classList.remove('hidden');
                 isValid = false;
             }

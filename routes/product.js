@@ -30,7 +30,7 @@ router.post("/create", isAuthenticated, async (req, res) => {
           return res.json({ message: "Database error" });
         }
        // return res.redirect("/api/v1/product");
-       res.redirect("/api/v1/product/")
+       res.redirect("/api/v1/product/");
       }
     );
   } catch (error) {

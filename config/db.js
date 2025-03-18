@@ -1,6 +1,16 @@
 import sqlite3 from 'sqlite3';
 
-const db = new sqlite3.Database('./database.sqlite');
+// const db = new sqlite3.Database('./database.sqlite');
+
+sqlite3.verbose()
+
+// Create an in-memory database (stored in RAM)
+const db = new sqlite3.Database(':memory:', (err) => {
+    if (err) {
+        return console.error(err.message);
+    }
+    console.log('Connected to the in-memory SQLite database.');
+});
 
 // Create User table
 db.run(`CREATE TABLE IF NOT EXISTS users (
