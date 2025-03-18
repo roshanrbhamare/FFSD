@@ -89,6 +89,10 @@ router.get("/cart", (req, res) => {
   res.render("cart/index.ejs", { title: "Cart", role: req.role });
 });
 
+
+router.get("/shop",(req,res)=>{
+  res.render("store/index.ejs",{title:"Shop",role:req.role});
+})
 router.post("/cart", isAuthenticated, async (req, res) => {
   try {
     const userId = req.userId;
