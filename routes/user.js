@@ -43,7 +43,7 @@ router.post("/login", async (req, res) => {
         secure: false,
         maxAge: 3600000,
       });
-      res.redirect("/api/v1/user/")
+      res.redirect("/api/v1/user/");
     });
   } catch (error) {
     console.log(error);

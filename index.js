@@ -9,7 +9,7 @@ import productRouter from "./routes/product.js"
 
 import { fileURLToPath } from 'url';
 import dotenv from "dotenv";
-import { title } from 'process';
+
 import cors from "cors"
 import cookieParser  from "cookie-parser";
 import Product from './models/product.js';
@@ -63,16 +63,16 @@ app.get("/account/address", isAuthenticated,(req, res) => {
   res.render("account_address/index.ejs", { title: 'Account Address',role:req.role });
 })
 
-app.get("/product",(req,res)=>{
-  res.render("seller/Product/index.ejs",{title:"Create a new Product"})
-})
-app.get('/product/:id', (req, res) => {
-  const { id } = req.params;
-  const product = products.find(product => product.id === Number(id));
-  let filteredProducts = products.filter(product => product.id !== id);
-  filteredProducts = filteredProducts.slice(0, 5);
-  res.render('product/index.ejs', { title: 'Product page', product, filteredProducts })
-});
+// app.get("/product",(req,res)=>{
+//   res.render("seller/Product/index.ejs",{title:"Create a new Product"})
+// })
+// app.get('/product/:id', (req, res) => {
+//   const { id } = req.params;
+//   const product = products.find(product => product.id === Number(id));
+//   let filteredProducts = products.filter(product => product.id !== id);
+//   filteredProducts = filteredProducts.slice(0, 5);
+//   res.render('product/index.ejs', { title: 'Product page', product, filteredProducts })
+// });
 
 app.get('/blog',isAuthenticated, (req, res) => res.render('blog/index.ejs', { title: 'Blog Page',role:req.role }));
 app.get('/contact',isAuthenticated, (req, res) => res.render('contact/index.ejs', { title: 'Contact Page',role:req.role }));

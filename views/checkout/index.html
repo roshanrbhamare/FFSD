@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+    <div class="max-w-7xl mx-auto p-6">
+        <!-- Checkout Header -->
+        <h1 class="text-3xl font-bold">Checkout</h1>
+        <p class="text-gray-600">Already have an account? Click here to <a href="#" class="text-green-600 font-semibold">Sign in.</a></p>
+
+        <!-- Checkout Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
+            <!-- Left Section -->
+            <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow">
+                <!-- Delivery Address -->
+                <h2 class="text-xl font-semibold mb-4">Add delivery address</h2>
+                
+                <div class="flex flex-col md:flex-row gap-4">
+                    <!-- Address 1 -->
+                    <div class="w-full border p-4 rounded-lg shadow-md">
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold">Home</span>
+                            <span class="text-sm text-green-600">Default address</span>
+                        </div>
+                        <p class="text-gray-700 mt-2">Jitu Chauhan</p>
+                        <p class="text-gray-500">4450 North Avenue, Oakland, Nebraska, USA</p>
+                        <p class="text-gray-500">402-776-1106</p>
+                        <div class="mt-4 flex justify-between text-sm">
+                            <button class="text-blue-500">Edit</button>
+                            <button class="text-red-500">Delete</button>
+                        </div>
+                    </div>
+
+                    <!-- Address 2 -->
+                    <div class="w-full border p-4 rounded-lg shadow-md">
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold">Office</span>
+                            <span class="text-sm text-green-600 cursor-pointer">Set as Default</span>
+                        </div>
+                        <p class="text-gray-700 mt-2">Nitu Chauhan</p>
+                        <p class="text-gray-500">3853 Coal Road, Tannersville, Pennsylvania, USA</p>
+                        <p class="text-gray-500">402-776-1106</p>
+                        <div class="mt-4 flex justify-between text-sm">
+                            <button class="text-blue-500">Edit</button>
+                            <button class="text-red-500">Delete</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add Address Button -->
+                <button class="mt-4 px-4 py-2 bg-green-600 text-white rounded shadow hover:bg-green-600">Add a new address</button>
+
+                <!-- Delivery Options -->
+                <div class="mt-6 border-t pt-4">
+                    <p class="font-semibold flex items-center"><span class="mr-2">⏰</span> Delivery time</p>
+                </div>
+                <div class="mt-4 border-t pt-4">
+                    <p class="font-semibold flex items-center"><span class="mr-2">📝</span> Delivery instructions</p>
+                </div>
+                <div class="mt-4 border-t pt-4">
+                    <p class="font-semibold flex items-center"><span class="mr-2">💳</span> Payment Method</p>
+                </div>
+            </div>
+
+            <!-- Right Section (Order Summary) -->
+            <div class="bg-white p-6 rounded-lg shadow">
+                <h2 class="text-xl font-semibold mb-4">Order Details</h2>
+                <div class="space-y-4">
+                    <!-- Item List -->
+                    <div class="flex justify-between">
+                        <span>Haldiram's Sev Bhujia</span>
+                        <span class="font-semibold">$21.60</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>NutriChoice Digestive</span>
+                        <span class="font-semibold">$24.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Cadbury 5 Star Chocolate</span>
+                        <span class="font-semibold">$33.25</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Onion Flavour Potato</span>
+                        <span class="font-semibold">$3.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Salted Instant Popcorn</span>
+                        <span class="font-semibold">$11.70</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Cadbury 5 Star Chocolate</span>
+                        <span class="font-semibold">$35.00</span>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Summary -->
+                    <div class="flex justify-between">
+                        <span>Item Subtotal</span>
+                        <span class="font-semibold">$128.55</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Shipping Fee</span>
+                        <span class="font-semibold">$0.00</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span>Tax VAT 18%</span>
+                        <span class="font-semibold">$23.14</span>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <!-- Grand Total -->
+                    <div class="flex justify-between text-xl font-bold">
+                        <span>Grand Total</span>
+                        <span>$151.69</span>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <button class="mt-4 w-full bg-green-600 text-white py-3 rounded shadow hover:bg-green-900">Proceed to Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
